@@ -25,6 +25,7 @@
 git clone https://github.com/yourname/GuardianAI.git
 cd GuardianAI
 # install dependencies as needed (Python/Node/Java/Kotlin/etc.)
+```
 
 ## Contributing
 PRs welcome! Please follow the contribution guide in CONTRIBUTING.md.
