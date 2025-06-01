@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GuardianAI Video Upload</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col items-center justify-center">
+    <div class="w-full max-w-md mx-auto mt-10 p-8 bg-white rounded-xl shadow-lg border">
+        <h1 class="text-2xl font-bold mb-6 text-center">Upload a Video for Moderation</h1>
+        <form id="uploadForm" class="space-y-6">
+            <div>
+                <label for="videoFile" class="block text-sm font-medium text-gray-700 mb-2">Video File</label>
+                <input type="file" id="videoFile" name="file" accept="video/*" required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" />
+            </div>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition disabled:opacity-50 disabled:cursor-not-allowed">Upload</button>
+        </form>
+        <div id="result" class="mt-6 text-center"></div>
+    </div>
+    <script>
+        const form = document.getElementById('uploadForm');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('videoFile');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            document.getElementById('result').innerText = 'Uploading...';
+            const response = await fetch('/upload-video/', {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'processed_' + fileInput.files[0].name;
+                a.innerText = 'Download Processed Video';
+                document.getElementById('result').innerHTML = '';
+                document.getElementById('result').appendChild(a);
+            } else {
+                document.getElementById('result').innerText = 'Upload failed.';
+            }
+        };
+    </script>
+</body>
+</html> 

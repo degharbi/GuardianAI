@@ -19,13 +19,18 @@
 - Educational platforms  
 - Smart TV apps  
 
-## Installation
+## Usage
 
+- ensure that you have docker installed
+- run the following command in your terminal
 ```bash
-git clone https://github.com/yourname/GuardianAI.git
-cd GuardianAI
-# install dependencies as needed (Python/Node/Java/Kotlin/etc.)
+docker run --name guardianai --rm -p 8000:8000 -v $(pwd):/app guardianai-app
 ```
+
+- then open http://0.0.0.0:8000/ in your browser.
+- upload a video, wait for it to process
+- download the video 
+- enjoy clean content
 
 ## Contributing
 PRs welcome! Please follow the contribution guide in CONTRIBUTING.md.
